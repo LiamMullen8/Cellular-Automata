@@ -27,6 +27,7 @@ def update(frameNum, img, grid, N):
         for j in range(N):
             c = count_neighbors(i, j)
             
+            # GOL Rules
             if grid[i,j] == 0:
                 if c == 3:
                     newGrid[i,j] = 1
@@ -52,8 +53,8 @@ def main():
     
     N = int(input("grid size: "))
     F = int(input("enter number of frames: "))
-    # declare grid
-
+    
+    # initialize grid
     grid = randomGrid(N)
     print(grid)
 
