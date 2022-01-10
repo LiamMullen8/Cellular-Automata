@@ -1,7 +1,8 @@
-import math
 from PIL import Image, ImageDraw
 import sys
 import random
+import math
+
 
 def rep(start):
     s=[0]
@@ -24,25 +25,28 @@ def rep(start):
     return s
 
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
+    
     # get user binary input, add border 0s
     if len(sys.argv) == 1:
         start = "0" + input("enter binary: ") + "0"
-        
+
+    # single source
     elif sys.argv[1] == "source":
         i = int(input("enter size: "))
         start = "0" + "0"*(i//2 -1) + "1" + "0"*(i//2) + "0"
-        
+
+    # randomized initial condition
     elif sys.argv[1] == "random":
         i = int(input("enter size: "))
         start = "0"
         for _ in range(i):
             start += f"{random.randint(0,1)}"
         start += "0"  
-        
+
     start = [int(c) for c in start]
-    print(start)
+    
     PARAM = float(input("Enter delta for avg of each cell: "))
 
     h = int(input("enter number of generations: "))
@@ -59,11 +63,14 @@ if __name__ == "__main__":
         for i in range(1, w+1):
             img1.rectangle([(i-1, j-1), (i, j)], fill=(int(255*start[i]), 0, 255))
         start = rep(start)
-        print(f"{(j/h) *100}%")
-        
-    img.show()
 
+        # progress percentage for monitoring
+        print(f"{(j/h)*100}%")
+
+    # save generated image
     if len(sys.argv) == 1:
         img.save(f"delta{PARAM}.png")
     else:
         img.save(f"delta{PARAM}-{sys.argv[1]}.png")
+
+    img.show()
